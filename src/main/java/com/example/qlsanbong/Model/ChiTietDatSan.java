@@ -1,5 +1,6 @@
 package com.example.qlsanbong.Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,6 +10,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import java.time.LocalDate;
 import java.util.Date;
 import lombok.Data;
 
@@ -22,13 +24,14 @@ public class ChiTietDatSan {
   private Long id;
 
   @Column(name = "kip")
-  private String kip;
+  private int kip;
 
   @Column(name = "ngay")
-  private Date ngay;
+  private LocalDate ngay;
 
   @ManyToOne
   @JoinColumn(name = "id_don_hang")
+  @JsonBackReference
   private DonHang donHang;
 
   @ManyToOne

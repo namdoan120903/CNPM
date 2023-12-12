@@ -10,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -22,7 +24,7 @@ public class NguoiDungController {
   // đăng ký nguời dùng
   @PostMapping("/dangky")
   public String dangkyNguoiDung(@RequestBody NguoiDungDTO nguoiDungDTO){
-    nguoiDungService.dangkyNguoiDung(nguoiDungDTO.getSdt(), nguoiDungDTO.getPassword());
+    nguoiDungService.dangkyNguoiDung(nguoiDungDTO);
     return "Đăng ký thành công";
   }
   //
@@ -48,6 +50,11 @@ public class NguoiDungController {
   @PostMapping("/donhang/{id}")
   public String donHangNguoiDung( @PathVariable Long id, @RequestBody DonHangDTO donHangDTO){
     return nguoiDungService.donHangNguoiDung(id, donHangDTO);
+  }
+
+  @PutMapping("/thaydoimatkhau")
+  public String thayDoiMatKhau(@RequestParam String sdt, @RequestParam String matKhauMoi){
+    return nguoiDungService.thayDoiMatKhau(sdt, matKhauMoi);
   }
 
 }

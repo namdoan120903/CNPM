@@ -1,0 +1,78 @@
+package com.example.qlsanbong.Controller;
+
+import com.example.qlsanbong.DTO.DonHangDTO;
+import com.example.qlsanbong.Model.ChiTietDatSan;
+import com.example.qlsanbong.Model.ChiTietDonHang;
+import com.example.qlsanbong.Model.DonHang;
+import com.example.qlsanbong.Model.NguoiDung;
+import com.example.qlsanbong.Model.SanBong;
+import com.example.qlsanbong.Model.SanPham;
+import com.example.qlsanbong.Service.AdminService;
+import com.example.qlsanbong.Service.NguoiDungService;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/api/admin")
+public class AdminController {
+  @Autowired
+  AdminService adminService;
+  @Autowired
+  NguoiDungService nguoiDungService;
+
+  @GetMapping("/sanpham")
+  public List<SanPham> danhsachSanPham(){
+    return nguoiDungService.danhSachSanPham();
+  }
+  @GetMapping("/sanbong")
+  public List<SanBong> danhsachSanBong(){
+    return nguoiDungService.danhsachSanBong();
+  }
+
+  @PostMapping("/themsanpham")
+  public String themSanPham(@RequestBody SanPham sanPham){
+    return adminService.themSanPham(sanPham);
+  }
+
+  @DeleteMapping("/xoasanpham/{id}")
+  public String xoaSanPham(@PathVariable Long id){
+    return adminService.xoaSanPham(id);
+  }
+
+  @GetMapping("/taikhoan")
+  public List<NguoiDung> danhSachTaiKhoan(){
+    return adminService.danhSachTaiKhoan();
+  }
+  @GetMapping("/danhsachdonhang")
+  public List<DonHang> danhSachDonHang(){
+    return adminService.danhSachDonHang();
+  }
+  @GetMapping("/donhang/{id}")
+  public DonHang donHangNguoiDung(@PathVariable Long id){
+    return adminService.donHangNguoiDung(id);
+  }
+  @GetMapping("/chitietdonhang/{id}")
+  public List<ChiTietDonHang> chiTietDonHang(@PathVariable Long id){
+    return adminService.chiTietDonHang(id);
+  }
+  @GetMapping("/chitietdatsan/{id}")
+  public List<ChiTietDatSan> chiTietDatSan(@PathVariable Long id){
+    return adminService.chiTietDatSan(id);
+  }
+  @GetMapping("/doanhthu")
+  public int doanhThu(){
+    return adminService.doanhThu();
+  }
+  @PutMapping("/capnhattrangthai/{id}")
+  public String capNhatTrangThai(@PathVariable Long id){
+    return adminService.capNhatTrangThai(id);
+  }
+}

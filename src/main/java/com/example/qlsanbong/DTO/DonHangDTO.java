@@ -8,5 +8,5 @@ import lombok.Data;
 @Data
 public class DonHangDTO {
   private List<SanPhamDTO> donHangSanPham;
-  private List<SanBong> donHangSanBong;
+  private List<SanBongDTO> donHangSanBong;
 }
