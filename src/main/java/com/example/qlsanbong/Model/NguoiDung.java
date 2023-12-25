@@ -25,8 +25,6 @@ public class NguoiDung {
 
   @Column(name = "sdt")
   private String sdt;
-
-  @JsonIgnore
   @Column(name = "password")
   private String password;
 
@@ -41,6 +39,7 @@ public class NguoiDung {
 
   @OneToMany(mappedBy = "nguoiDung")
   @JsonManagedReference
+  @JsonIgnore
   private List<DonHang> donHangs;
 
 }

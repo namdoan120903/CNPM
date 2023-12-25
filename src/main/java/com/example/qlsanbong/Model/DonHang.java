@@ -46,6 +46,7 @@ public class DonHang {
   private List<ChiTietDonHang> chiTietDonHangs;
 
   @OneToMany(mappedBy = "donHang")
+  @JsonManagedReference
   private List<ChiTietDatSan> chiTietDatSans;
 
 
