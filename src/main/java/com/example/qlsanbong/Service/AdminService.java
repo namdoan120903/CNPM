@@ -44,17 +44,24 @@ public class AdminService {
   public List<DonHang> danhSachDonHang(){
     return donHangRepository.findAll();
   }
+
+  public List<DonHang> danhSachDonHangSdt(String sdt){
+    return donHangRepository.findByNguoiDung_Sdt(sdt);
+  }
+  // tim theo id don hang
   public DonHang donHangNguoiDung(Long id){
     return donHangRepository.findById(id).orElse(null);
   }
+
   public List<ChiTietDonHang> chiTietDonHang(Long id){
       return chiTietDonHangRepository.findByDonHang(id);
   }
   public List<ChiTietDatSan> chiTietDatSan(Long id){
     return chiTietDatSanRepository.findByDonHang(id);
   }
+  // xu ly don hang
   public int doanhThu(){
-      return donHangRepository.doanhThu();
+      return donHangRepository.doanhThu("Đã thanh toán");
   }
 
   public String capNhatTrangThai(Long id){
@@ -63,5 +70,4 @@ public class AdminService {
     donHangRepository.save(donHang);
     return "Cập nhật đơn hàng thành công";
   }
-
 }

@@ -2,11 +2,16 @@ package com.example.qlsanbong.Controller;
 
 import com.example.qlsanbong.DTO.DonHangDTO;
 import com.example.qlsanbong.DTO.NguoiDungDTO;
+import com.example.qlsanbong.DTO.SanBongDTO;
+import com.example.qlsanbong.Model.NguoiDung;
 import com.example.qlsanbong.Model.SanBong;
 import com.example.qlsanbong.Model.SanPham;
 import com.example.qlsanbong.Service.NguoiDungService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,23 +23,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/nguoidung")
+@CrossOrigin("http://localhost:3000")
 public class NguoiDungController {
   @Autowired
   private NguoiDungService nguoiDungService;
   // đăng ký nguời dùng
   @PostMapping("/dangky")
-  public String dangkyNguoiDung(@RequestBody NguoiDungDTO nguoiDungDTO){
-    nguoiDungService.dangkyNguoiDung(nguoiDungDTO);
-    return "Đăng ký thành công";
+  public ResponseEntity<NguoiDung> dangkyNguoiDung(@RequestBody NguoiDung nguoiDung){
+    return nguoiDungService.dangkyNguoiDung(nguoiDung);
   }
   //
   @PostMapping("/dangnhap")
-  public String dangnhapNguoiDung(@RequestBody NguoiDungDTO nguoiDungDTO){
-    int check = nguoiDungService.dangnhapNguoiDung(nguoiDungDTO.getSdt(), nguoiDungDTO.getPassword());
-    if(check == 0) return "Số điện thoại đăng nhập không tồn tại";
-    else if(check == 2) return "Mật khẩu sai";
-    else if(check == 3) return "Đăng nhập thành công với tài khoản admin";
-    else return "Đăng nhập thành công";
+  public ResponseEntity<NguoiDung> dangnhapNguoiDung(@RequestBody NguoiDungDTO nguoiDungDTO){
+    return nguoiDungService.dangnhapNguoiDung(nguoiDungDTO.getSdt(), nguoiDungDTO.getPassword());
   }
 
   @GetMapping("/sanpham")
@@ -48,13 +49,18 @@ public class NguoiDungController {
   }
 
   @PostMapping("/donhang/{id}")
-  public String donHangNguoiDung( @PathVariable Long id, @RequestBody DonHangDTO donHangDTO){
+  public ResponseEntity<String> donHangNguoiDung( @PathVariable Long id, @RequestBody DonHangDTO donHangDTO){
     return nguoiDungService.donHangNguoiDung(id, donHangDTO);
   }
 
   @PutMapping("/thaydoimatkhau")
-  public String thayDoiMatKhau(@RequestParam String sdt, @RequestParam String matKhauMoi){
-    return nguoiDungService.thayDoiMatKhau(sdt, matKhauMoi);
+  public ResponseEntity<NguoiDung> thayDoiMatKhau(@RequestParam String sdt, @RequestParam String matkhauMoi){
+    return nguoiDungService.thayDoiMatKhau(sdt, matkhauMoi);
+  }
+
+  @GetMapping("/sandadat")
+  public List<SanBongDTO> danhSachSanDaDat(){
+    return nguoiDungService.danhSachSanDaDat();
   }
 
 }

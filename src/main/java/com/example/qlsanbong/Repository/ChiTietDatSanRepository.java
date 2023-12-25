@@ -9,4 +9,6 @@ import org.springframework.data.jpa.repository.Query;
 public interface ChiTietDatSanRepository extends JpaRepository<ChiTietDatSan, Long> {
   @Query("select c from ChiTietDatSan c join fetch c.sanBong where c.donHang.id = ?1")
   List<ChiTietDatSan> findByDonHang(Long id);
+  @Query("select c from ChiTietDatSan c join fetch c.sanBong")
+  List<ChiTietDatSan> findSanDaDat();
 }

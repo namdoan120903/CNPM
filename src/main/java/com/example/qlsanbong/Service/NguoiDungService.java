@@ -16,9 +16,13 @@ import com.example.qlsanbong.Repository.DonHangRepository;
 import com.example.qlsanbong.Repository.NguoiDungRepository;
 import com.example.qlsanbong.Repository.SanBongRepository;
 import com.example.qlsanbong.Repository.SanPhamRepository;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -36,43 +40,27 @@ public class NguoiDungService {
   @Autowired
   DonHangRepository donHangRepository;
 
-  public void dangkyNguoiDung(NguoiDungDTO nguoiDungDTO){
-    String sdt = nguoiDungDTO.getSdt();
-    String password = nguoiDungDTO.getPassword();
-    String name = nguoiDungDTO.getName();
-    if(nguoiDungRepository.findBySdt(sdt) == null){
-      NguoiDung nguoiDung = new NguoiDung();
-      nguoiDung.setSdt(sdt);
-      nguoiDung.setHoTen(name);
-      nguoiDung.setPassword(password);
-      nguoiDung.setVaiTro("User");
-      nguoiDungRepository.save(nguoiDung);
+  public ResponseEntity<NguoiDung> dangkyNguoiDung(NguoiDung nguoiDung){
+    String sdt = nguoiDung.getSdt();
+    if(nguoiDungRepository.findBySdt(sdt) != null){
+      return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
     }
-    else {
-      throw new RuntimeException("Tên đăng nhâp đã được sử dụng");
-    }
+    nguoiDungRepository.save(nguoiDung);
+    return ResponseEntity.status(HttpStatus.OK).body(nguoiDung);
   }
 
-  public int dangnhapNguoiDung(String sdt, String password){
-    if(nguoiDungRepository.findBySdt(sdt) == null){
-      return 0;
-    }
-    else {
-      NguoiDung nguoiDung = nguoiDungRepository.findBySdt(sdt);
-      if(nguoiDung.getPassword().equals(password)) {
-        if(nguoiDung.getVaiTro() == "Admin") return 3;
-        else return 1;
-      }
-      else return 2;
-    }
+  public ResponseEntity<NguoiDung> dangnhapNguoiDung(String sdt, String password){
+    NguoiDung nguoiDung =  nguoiDungRepository.findBySdt(sdt);
+    if(nguoiDung == null) return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+    if(!nguoiDung.getPassword().equals(password)) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+    return ResponseEntity.ok(nguoiDung);
   }
-  public String thayDoiMatKhau(String sdt, String matKhauMoi){
+  public ResponseEntity<NguoiDung> thayDoiMatKhau(String sdt, String matKhauMoi){
     NguoiDung nguoiDung = nguoiDungRepository.findBySdt(sdt);
     nguoiDung.setPassword(matKhauMoi);
     nguoiDungRepository.save(nguoiDung);
-    return "thay đổi mật khẩu thành công";
+    return ResponseEntity.status(HttpStatus.OK).body(nguoiDung);
   }
-
   // xem danh sach san pham
 
   public List<SanPham> danhSachSanPham(){
@@ -82,12 +70,12 @@ public class NguoiDungService {
     return sanBongRepository.findAll();
   }
   // nhap don hang vao co so du lieu
-  public String donHangNguoiDung(Long id, DonHangDTO donHangDTO){
+  public ResponseEntity<String> donHangNguoiDung(Long id, DonHangDTO donHangDTO){
     DonHang donHang = new DonHang();
     int tongTien = 0;
 
     NguoiDung nguoiDung = nguoiDungRepository.findById(id).orElse(null);
-    if(nguoiDung == null) return "Không tìm thấy người dùng";
+    if(nguoiDung == null) return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Không tìm thâý người dùng");
     donHang.setNguoiDung(nguoiDung);
     donHang.setNgayTao(new Date());
     donHangRepository.save(donHang);
@@ -117,6 +105,13 @@ public class NguoiDungService {
     }
     donHang.setTongTien(tongTien);
     donHangRepository.save(donHang);
-    return "Nhập đơn hàng thành công";
+    return ResponseEntity.status(HttpStatus.OK).body("Nhập dữ liệu thành công");
+  }
+
+  public List<SanBongDTO> danhSachSanDaDat(){
+    List<ChiTietDatSan> chiTietDatSans = chiTietDatSanRepository.findSanDaDat();
+    return chiTietDatSans.stream().map(chiTietDatSan -> {
+        return  new SanBongDTO(chiTietDatSan.getId(), chiTietDatSan.getKip(), chiTietDatSan.getNgay());
+    }).collect(Collectors.toList());
   }
 }

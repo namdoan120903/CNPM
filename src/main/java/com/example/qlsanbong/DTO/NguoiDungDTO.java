@@ -5,5 +5,4 @@ import lombok.Data;
 public class NguoiDungDTO {
   private String sdt;
   private String password;
-  private String name;
 }

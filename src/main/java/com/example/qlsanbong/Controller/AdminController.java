@@ -1,6 +1,7 @@
 package com.example.qlsanbong.Controller;
 
 import com.example.qlsanbong.DTO.DonHangDTO;
+import com.example.qlsanbong.DTO.SanBongDTO;
 import com.example.qlsanbong.Model.ChiTietDatSan;
 import com.example.qlsanbong.Model.ChiTietDonHang;
 import com.example.qlsanbong.Model.DonHang;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -75,4 +77,11 @@ public class AdminController {
   public String capNhatTrangThai(@PathVariable Long id){
     return adminService.capNhatTrangThai(id);
   }
+
+  @GetMapping("/donhang/sdt")
+  public List<DonHang> danhsachDonHangSdt(@RequestParam String sdt){
+    return adminService.danhSachDonHangSdt(sdt);
+  }
+
+
 }
