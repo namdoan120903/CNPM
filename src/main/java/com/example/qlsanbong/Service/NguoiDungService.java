@@ -45,6 +45,7 @@ public class NguoiDungService {
     if(nguoiDungRepository.findBySdt(sdt) != null){
       return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
     }
+    nguoiDung.setVaiTro("User");
     nguoiDungRepository.save(nguoiDung);
     return ResponseEntity.status(HttpStatus.OK).body(nguoiDung);
   }
