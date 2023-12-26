@@ -38,7 +38,6 @@ public class DonHang {
 
   @ManyToOne
   @JoinColumn(name = "id_nguoi_dung")
-  @JsonBackReference
   private NguoiDung nguoiDung;
 
   @OneToMany(mappedBy = "donHang")

@@ -38,7 +38,6 @@ public class NguoiDung {
   private String diaChi;
 
   @OneToMany(mappedBy = "nguoiDung")
-  @JsonManagedReference
   @JsonIgnore
   private List<DonHang> donHangs;
 
