@@ -87,6 +87,8 @@ public class NguoiDungService {
       SanPham sanPham = sanPhamRepository.findById( sanPhamDTO.getId()).orElse(null);
       int soLuongMua = sanPhamDTO.getSoLuongMua();
       tongTien += sanPham.getGiaBan() * soLuongMua;
+      sanPham.setSoLuongKho(sanPham.getSoLuongKho()-soLuongMua);
+      sanPhamRepository.save(sanPham);
       ChiTietDonHang chiTietDonHang = new ChiTietDonHang();
       chiTietDonHang.setDonHang(donHang);
       chiTietDonHang.setSanPham(sanPham);

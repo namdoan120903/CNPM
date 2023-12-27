@@ -75,7 +75,7 @@ public class AdminController {
     return adminService.chiTietDatSan(id);
   }
   @GetMapping("/doanhthu")
-  public int doanhThu(){
+  public long doanhThu(){
     return adminService.doanhThu();
   }
   @PostMapping("/capnhattrangthai/{id}")
@@ -86,6 +86,10 @@ public class AdminController {
   @GetMapping("/donhang/sdt")
   public List<DonHang> danhsachDonHangSdt(@RequestParam String sdt){
     return adminService.danhSachDonHangSdt(sdt);
+  }
+  @GetMapping("/thongke")
+  public List<Long> demDuLieu(){
+    return adminService.demDuLieu();
   }
 
 

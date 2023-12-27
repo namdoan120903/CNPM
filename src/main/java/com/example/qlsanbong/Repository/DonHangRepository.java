@@ -10,5 +10,5 @@ public interface DonHangRepository extends JpaRepository<DonHang, Long> {
   @Query("select dh from DonHang dh order by dh.ngayTao desc")
   List<DonHang> findAllDonHang();
   @Query("select sum(dh.tongTien) from DonHang dh where dh.trangThai = ?1  ")
-  int doanhThu(String trangthai);
+  long doanhThu(String trangthai);
 }

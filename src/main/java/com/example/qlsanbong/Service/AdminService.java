@@ -10,7 +10,9 @@ import com.example.qlsanbong.Repository.ChiTietDatSanRepository;
 import com.example.qlsanbong.Repository.ChiTietDonHangRepository;
 import com.example.qlsanbong.Repository.DonHangRepository;
 import com.example.qlsanbong.Repository.NguoiDungRepository;
+import com.example.qlsanbong.Repository.SanBongRepository;
 import com.example.qlsanbong.Repository.SanPhamRepository;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +29,8 @@ public class AdminService {
   ChiTietDonHangRepository chiTietDonHangRepository;
   @Autowired
   ChiTietDatSanRepository chiTietDatSanRepository;
-
+  @Autowired
+  SanBongRepository sanBongRepository;
   public String themSanPham(SanPham sanPham){
     sanPhamRepository.save(sanPham);
     return "them san pham thanh cong";
@@ -63,7 +66,7 @@ public class AdminService {
     return chiTietDatSanRepository.findByDonHang(id);
   }
   // xu ly don hang
-  public int doanhThu(){
+  public long doanhThu(){
       return donHangRepository.doanhThu("Đã thanh toán");
   }
 
@@ -72,5 +75,14 @@ public class AdminService {
     donHang.setTrangThai("Đã thanh toán");
     donHangRepository.save(donHang);
     return "Cập nhật đơn hàng thành công";
+  }
+  public List<Long> demDuLieu(){
+    List<Long> data = new ArrayList<>();
+    data.add(sanPhamRepository.count());
+    data.add(sanBongRepository.count());
+    data.add(nguoiDungRepository.count());
+    data.add(donHangRepository.count());
+    data.add(donHangRepository.doanhThu("Đã thanh toán"));
+    return data;
   }
 }
