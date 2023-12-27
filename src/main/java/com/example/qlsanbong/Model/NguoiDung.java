@@ -1,5 +1,6 @@
 package com.example.qlsanbong.Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
@@ -38,6 +39,7 @@ public class NguoiDung {
   private String diaChi;
 
   @OneToMany(mappedBy = "nguoiDung")
+  @JsonBackReference
   @JsonIgnore
   private List<DonHang> donHangs;
 

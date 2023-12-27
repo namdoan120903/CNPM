@@ -1,6 +1,7 @@
 package com.example.qlsanbong.Model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -42,10 +43,12 @@ public class DonHang {
 
   @OneToMany(mappedBy = "donHang")
   @JsonManagedReference
+  @JsonIgnore
   private List<ChiTietDonHang> chiTietDonHangs;
 
   @OneToMany(mappedBy = "donHang")
   @JsonManagedReference
+  @JsonIgnore
   private List<ChiTietDatSan> chiTietDatSans;
 
 

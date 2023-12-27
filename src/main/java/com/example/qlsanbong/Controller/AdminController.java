@@ -51,8 +51,13 @@ public class AdminController {
 
   @GetMapping("/taikhoan")
   public List<NguoiDung> danhSachTaiKhoan(){
-    return adminService.danhSachTaiKhoan();
+    return adminService.danhSachTaiKhoanUser();
   }
+  @GetMapping("/taikhoanadmin")
+  public List<NguoiDung> danhSachTaiKhoanA(){
+    return adminService.danhSachTaiKhoanAdmin();
+  }
+
   @GetMapping("/danhsachdonhang")
   public List<DonHang> danhSachDonHang(){
     return adminService.danhSachDonHang();
@@ -73,7 +78,7 @@ public class AdminController {
   public int doanhThu(){
     return adminService.doanhThu();
   }
-  @PutMapping("/capnhattrangthai/{id}")
+  @PostMapping("/capnhattrangthai/{id}")
   public String capNhatTrangThai(@PathVariable Long id){
     return adminService.capNhatTrangThai(id);
   }

@@ -79,6 +79,7 @@ public class NguoiDungService {
     if(nguoiDung == null) return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Không tìm thâý người dùng");
     donHang.setNguoiDung(nguoiDung);
     donHang.setNgayTao(new Date());
+    donHang.setTrangThai("Chưa thanh toán");
     donHangRepository.save(donHang);
 
     List<SanPhamDTO> sanPhamDTOS = donHangDTO.getDonHangSanPham();

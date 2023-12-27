@@ -1,6 +1,7 @@
 package com.example.qlsanbong.Model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,6 +33,7 @@ public class ChiTietDatSan {
   @ManyToOne
   @JoinColumn(name = "id_don_hang")
   @JsonBackReference
+  @JsonIgnore
   private DonHang donHang;
 
   @ManyToOne

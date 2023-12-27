@@ -38,11 +38,14 @@ public class AdminService {
     sanPhamRepository.delete(sanPham);
     return "xoa san pham thanh cong";
   }
-  public List<NguoiDung> danhSachTaiKhoan(){
-    return nguoiDungRepository.findAll();
+  public List<NguoiDung> danhSachTaiKhoanUser(){
+    return nguoiDungRepository.findTaiKhoanUser();
+  }
+  public List<NguoiDung> danhSachTaiKhoanAdmin(){
+    return nguoiDungRepository.findTaiKhoanAdmin();
   }
   public List<DonHang> danhSachDonHang(){
-    return donHangRepository.findAll();
+    return donHangRepository.findAllDonHang();
   }
 
   public List<DonHang> danhSachDonHangSdt(String sdt){
