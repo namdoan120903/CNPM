@@ -83,7 +83,7 @@ public class AdminController {
     return adminService.capNhatTrangThai(id);
   }
 
-  @GetMapping("/donhang/sdt")
+  @GetMapping("/danhsachdonhang/sdt")
   public List<DonHang> danhsachDonHangSdt(@RequestParam String sdt){
     return adminService.danhSachDonHangSdt(sdt);
   }

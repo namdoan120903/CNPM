@@ -32,7 +32,6 @@ public class NguoiDungController {
   public ResponseEntity<NguoiDung> dangkyNguoiDung(@RequestBody NguoiDung nguoiDung){
     return nguoiDungService.dangkyNguoiDung(nguoiDung);
   }
-  //
   @PostMapping("/dangnhap")
   public ResponseEntity<NguoiDung> dangnhapNguoiDung(@RequestBody NguoiDungDTO nguoiDungDTO){
     return nguoiDungService.dangnhapNguoiDung(nguoiDungDTO.getSdt(), nguoiDungDTO.getPassword());
@@ -42,7 +41,6 @@ public class NguoiDungController {
   public List<SanPham> danhSachSanPham(){
     return nguoiDungService.danhSachSanPham();
   }
-
   @GetMapping("/sanbong")
   public List<SanBong> danhSachSanBong(){
     return nguoiDungService.danhsachSanBong();
@@ -52,12 +50,10 @@ public class NguoiDungController {
   public ResponseEntity<String> donHangNguoiDung( @PathVariable Long id, @RequestBody DonHangDTO donHangDTO){
     return nguoiDungService.donHangNguoiDung(id, donHangDTO);
   }
-
   @PutMapping("/thaydoimatkhau")
   public ResponseEntity<NguoiDung> thayDoiMatKhau(@RequestParam String sdt, @RequestParam String matkhauMoi){
     return nguoiDungService.thayDoiMatKhau(sdt, matkhauMoi);
   }
-
   @GetMapping("/sandadat")
   public List<SanBongDTO> danhSachSanDaDat(){
     return nguoiDungService.danhSachSanDaDat();
