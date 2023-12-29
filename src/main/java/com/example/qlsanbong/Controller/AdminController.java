@@ -1,5 +1,6 @@
 package com.example.qlsanbong.Controller;
 
+import com.example.qlsanbong.DTO.ChiTietDatSanDTO;
 import com.example.qlsanbong.Model.ChiTietDatSan;
 import com.example.qlsanbong.Model.ChiTietDonHang;
 import com.example.qlsanbong.Model.DonHang;
@@ -91,6 +92,8 @@ public class AdminController {
   public List<Long> demDuLieu(){
     return adminService.demDuLieu();
   }
-
-
+  @GetMapping("/sanbongduocdat")
+  public List<ChiTietDatSanDTO> danhSachSanDat(){
+    return adminService.danhSachSanDat();
+  }
 }

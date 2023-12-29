@@ -1,6 +1,8 @@
 package com.example.qlsanbong.Service;
 
+import com.example.qlsanbong.DTO.ChiTietDatSanDTO;
 import com.example.qlsanbong.DTO.DonHangDTO;
+import com.example.qlsanbong.DTO.SanBongDTO;
 import com.example.qlsanbong.Model.ChiTietDatSan;
 import com.example.qlsanbong.Model.ChiTietDonHang;
 import com.example.qlsanbong.Model.DonHang;
@@ -14,6 +16,7 @@ import com.example.qlsanbong.Repository.SanBongRepository;
 import com.example.qlsanbong.Repository.SanPhamRepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -84,5 +87,11 @@ public class AdminService {
     data.add(donHangRepository.count());
     data.add(donHangRepository.doanhThu("Đã thanh toán"));
     return data;
+  }
+  public List<ChiTietDatSanDTO> danhSachSanDat(){
+    List<ChiTietDatSan> chiTietDatSans = chiTietDatSanRepository.findDSSanDaDat();
+    return chiTietDatSans.stream().map(chiTietDatSan -> {
+      return  new ChiTietDatSanDTO(chiTietDatSan.getDonHang().getNguoiDung().getHoTen(), chiTietDatSan.getDonHang().getNguoiDung().getSdt(), chiTietDatSan.getSanBong().getTenSan(), chiTietDatSan.getKip(), chiTietDatSan.getNgay());
+    }).collect(Collectors.toList());
   }
 }

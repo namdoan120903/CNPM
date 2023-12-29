@@ -50,6 +50,4 @@ public class DonHang {
   @JsonManagedReference
   @JsonIgnore
   private List<ChiTietDatSan> chiTietDatSans;
-
-
 }
