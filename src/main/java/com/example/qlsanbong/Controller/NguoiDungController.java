@@ -1,11 +1,13 @@
 package com.example.qlsanbong.Controller;
 
+import com.example.qlsanbong.DTO.ChiTietDatSanDTO;
 import com.example.qlsanbong.DTO.DonHangDTO;
 import com.example.qlsanbong.DTO.NguoiDungDTO;
 import com.example.qlsanbong.DTO.SanBongDTO;
 import com.example.qlsanbong.Model.NguoiDung;
 import com.example.qlsanbong.Model.SanBong;
 import com.example.qlsanbong.Model.SanPham;
+import com.example.qlsanbong.Service.AdminService;
 import com.example.qlsanbong.Service.NguoiDungService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class NguoiDungController {
   @Autowired
   private NguoiDungService nguoiDungService;
+  @Autowired
+  private AdminService adminService;
   // đăng ký nguời dùng
   @PostMapping("/dangky")
   public ResponseEntity<NguoiDung> dangkyNguoiDung(@RequestBody NguoiDung nguoiDung){
@@ -55,8 +59,7 @@ public class NguoiDungController {
     return nguoiDungService.thayDoiMatKhau(sdt, matkhauMoi);
   }
   @GetMapping("/sandadat")
-  public List<SanBongDTO> danhSachSanDaDat(){
-    return nguoiDungService.danhSachSanDaDat();
+  public List<ChiTietDatSanDTO> danhSachSanDaDat(){
+    return adminService.danhSachSanDat();
   }
-
 }

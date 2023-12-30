@@ -1,5 +1,6 @@
 package com.example.qlsanbong.Service;
 
+import com.example.qlsanbong.DTO.ChiTietDatSanDTO;
 import com.example.qlsanbong.DTO.DonHangDTO;
 import com.example.qlsanbong.DTO.NguoiDungDTO;
 import com.example.qlsanbong.DTO.SanBongDTO;
@@ -110,12 +111,5 @@ public class NguoiDungService {
     donHang.setTongTien(tongTien);
     donHangRepository.save(donHang);
     return ResponseEntity.status(HttpStatus.OK).body("Nhập dữ liệu thành công");
-  }
-
-  public List<SanBongDTO> danhSachSanDaDat(){
-    List<ChiTietDatSan> chiTietDatSans = chiTietDatSanRepository.findSanDaDat();
-    return chiTietDatSans.stream().map(chiTietDatSan -> {
-        return  new SanBongDTO(chiTietDatSan.getId(), chiTietDatSan.getKip(), chiTietDatSan.getNgay());
-    }).collect(Collectors.toList());
   }
 }
