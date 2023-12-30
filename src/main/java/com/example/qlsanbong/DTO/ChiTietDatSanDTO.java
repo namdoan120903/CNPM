@@ -13,4 +13,5 @@ public class ChiTietDatSanDTO {
   private String tenSan;
   private int kip;
   private LocalDate ngay;
+  private Long idSanBong;
 }

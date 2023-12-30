@@ -91,7 +91,7 @@ public class AdminService {
   public List<ChiTietDatSanDTO> danhSachSanDat(){
     List<ChiTietDatSan> chiTietDatSans = chiTietDatSanRepository.findDSSanDaDat();
     return chiTietDatSans.stream().map(chiTietDatSan -> {
-      return  new ChiTietDatSanDTO(chiTietDatSan.getDonHang().getNguoiDung().getHoTen(), chiTietDatSan.getDonHang().getNguoiDung().getSdt(), chiTietDatSan.getSanBong().getTenSan(), chiTietDatSan.getKip(), chiTietDatSan.getNgay());
+      return  new ChiTietDatSanDTO(chiTietDatSan.getDonHang().getNguoiDung().getHoTen(), chiTietDatSan.getDonHang().getNguoiDung().getSdt(), chiTietDatSan.getSanBong().getTenSan(), chiTietDatSan.getKip(), chiTietDatSan.getNgay(), chiTietDatSan.getSanBong().getId());
     }).collect(Collectors.toList());
   }
 }
