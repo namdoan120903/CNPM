@@ -96,4 +96,13 @@ public class AdminController {
   public List<ChiTietDatSanDTO> danhSachSanDat(){
     return adminService.danhSachSanDat();
   }
+  @PostMapping("/capnhatsanpham/{id}")
+  public String capNhatSanPham(@PathVariable Long id, @RequestParam int gia, @RequestParam int sl){
+    return adminService.capNhatSanPham(id, gia, sl);
+  }
+  @PostMapping("/capnhatsanbong/{id}")
+  public String capNhatSanBong(@PathVariable Long id, @RequestParam int gia){
+    return adminService.capNhatSanBong(id, gia);
+  }
+
 }

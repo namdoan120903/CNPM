@@ -38,7 +38,6 @@ public class ChiTietDatSan {
 
   @ManyToOne
   @JoinColumn(name = "id_san_bong")
-  @JsonIgnore
   private SanBong sanBong;
 
 }

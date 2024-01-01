@@ -7,6 +7,7 @@ import com.example.qlsanbong.Model.ChiTietDatSan;
 import com.example.qlsanbong.Model.ChiTietDonHang;
 import com.example.qlsanbong.Model.DonHang;
 import com.example.qlsanbong.Model.NguoiDung;
+import com.example.qlsanbong.Model.SanBong;
 import com.example.qlsanbong.Model.SanPham;
 import com.example.qlsanbong.Repository.ChiTietDatSanRepository;
 import com.example.qlsanbong.Repository.ChiTietDonHangRepository;
@@ -93,5 +94,18 @@ public class AdminService {
     return chiTietDatSans.stream().map(chiTietDatSan -> {
       return  new ChiTietDatSanDTO(chiTietDatSan.getDonHang().getNguoiDung().getHoTen(), chiTietDatSan.getDonHang().getNguoiDung().getSdt(), chiTietDatSan.getSanBong().getTenSan(), chiTietDatSan.getKip(), chiTietDatSan.getNgay(), chiTietDatSan.getSanBong().getId());
     }).collect(Collectors.toList());
+  }
+  public String capNhatSanPham(Long id, int gia, int sl){
+    SanPham sanPham = sanPhamRepository.findById(id).orElse(null);
+    sanPham.setSoLuongKho(sl);
+    sanPham.setGiaBan(gia);
+    sanPhamRepository.save(sanPham);
+    return "Cập nhật thành công";
+  }
+  public String capNhatSanBong(Long id, int gia){
+    SanBong sanBong = sanBongRepository.findById(id).orElse(null);
+    sanBong.setGia(gia);
+    sanBongRepository.save(sanBong);
+    return "Cập nhật thành công";
   }
 }
